@@ -4,6 +4,7 @@
 </head>
 <body>
 <div id="score">0</div>
+<div id="gameOver"></div>
 <canvas id = "gameCanvas" width= "300" height = "300"\>
 </body>
 <script>
@@ -27,6 +28,8 @@
 	  
 	 //vertical
 	 let dy = 0;
+	
+	document.getElementById("gameOver").style.color = 'red';
 	
 	var gameCanvas = document.getElementById("gameCanvas");
     var ctx = gameCanvas.getContext('2d');
@@ -57,6 +60,9 @@
 	main();
 	
 	function main() { 
+	if(didGameEnd()){
+	document.getElementById("gameOver").innerHTML = "GAME OVER";
+	return;}
 	setTimeout(function onTick() { clearCanvas(); drawFood(); advanceSnake(); drawSnake(); main();  }, 100)}
 	
 	document.addEventListener("keydown", changeDirection)
@@ -153,7 +159,7 @@
 		if (didCollide) return true  }
 			const hitLeftWall = snake[0].x < 0;  
 			const hitRightWall = snake[0].x > gameCanvas.width - 10;  
-			const hitToptWall = snake[0].y > 0;  
+			const hitToptWall = snake[0].y < 0;  
 			const hitBottomWall = snake[0].y > gameCanvas.height - 10;
 		return hitLeftWall || hitRightWall || hitToptWall ||hitBottomWall;
 		}
@@ -162,4 +168,5 @@
 		
 </script>
 </html>
+	
 	
